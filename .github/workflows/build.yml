@@ -1,0 +1,66 @@
+# Builds only what cannot be built on the dev Mac (it has no Xcode): the macOS app and
+# (optionally) an unsigned iPhone IPA. Android is built locally.
+# Tests and analyze run locally, not here. Manual trigger only, so it costs minutes
+# only when you press the button: Actions tab > Build > Run workflow.
+name: Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      mac:
+        description: Build the macOS app
+        type: boolean
+        default: true
+      ios:
+        description: Build an unsigned iPhone IPA (for AltStore or Sideloadly)
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build
+  cancel-in-progress: true
+
+jobs:
+  apple:
+    # One macOS runner for both builds, so the Flutter setup is paid for once.
+    runs-on: macos-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.47.9
+          cache: true
+
+      - name: Build macOS app
+        if: ${{ inputs.mac }}
+        run: |
+          flutter build macos --release
+          ditto -c -k --sequesterRsrc --keepParent build/macos/Build/Products/Release/darwaza.app darwaza-macos.zip
+
+      - name: Build unsigned iPhone IPA
+        if: ${{ inputs.ios }}
+        run: |
+          flutter build ios --release --no-codesign
+          mkdir Payload
+          cp -R build/ios/iphoneos/Runner.app Payload/
+          zip -qr darwaza-unsigned.ipa Payload
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ inputs.mac }}
+        with:
+          name: darwaza-macos
+          path: darwaza-macos.zip
+          retention-days: 7
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ inputs.ios }}
+        with:
+          name: darwaza-iphone-unsigned
+          path: darwaza-unsigned.ipa
+          retention-days: 7

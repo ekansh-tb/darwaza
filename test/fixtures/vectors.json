@@ -1,0 +1,90 @@
+{
+  "frames": [
+    {
+      "name": "connect",
+      "command": 1000,
+      "session": 0,
+      "reply_id": 65534,
+      "payload_hex": "",
+      "frame_hex": "5050827d08000000e80317fc00000000"
+    },
+    {
+      "name": "auth_key0_session4242",
+      "command": 1102,
+      "session": 4242,
+      "reply_id": 1,
+      "payload_hex": "617d3269",
+      "frame_hex": "5050827d0c0000004e048a0492100200617d3269"
+    },
+    {
+      "name": "read_serial",
+      "command": 11,
+      "session": 4242,
+      "reply_id": 2,
+      "payload_hex": "7e53657269616c4e756d62657200",
+      "frame_hex": "5050827d160000000b005ca6921003007e53657269616c4e756d62657200"
+    },
+    {
+      "name": "read_name",
+      "command": 11,
+      "session": 4242,
+      "reply_id": 3,
+      "payload_hex": "7e4465766963654e616d6500",
+      "frame_hex": "5050827d140000000b00e614921004007e4465766963654e616d6500"
+    },
+    {
+      "name": "unlock_3s",
+      "command": 31,
+      "session": 4242,
+      "reply_id": 4,
+      "payload_hex": "1e000000",
+      "frame_hex": "5050827d0c0000001f002bef921005001e000000"
+    },
+    {
+      "name": "unlock_10s",
+      "command": 31,
+      "session": 4242,
+      "reply_id": 5,
+      "payload_hex": "64000000",
+      "frame_hex": "5050827d0c0000001f00e4ee9210060064000000"
+    },
+    {
+      "name": "exit",
+      "command": 1001,
+      "session": 4242,
+      "reply_id": 6,
+      "payload_hex": "",
+      "frame_hex": "5050827d08000000e9037deb92100700"
+    },
+    {
+      "name": "reply_id_wrap",
+      "command": 1001,
+      "session": 4242,
+      "reply_id": 65534,
+      "payload_hex": "",
+      "frame_hex": "5050827d08000000e90384eb92100000"
+    }
+  ],
+  "commkeys": [
+    {
+      "key": 0,
+      "session": 1,
+      "hex": "617d3279"
+    },
+    {
+      "key": 0,
+      "session": 4242,
+      "hex": "617d3269"
+    },
+    {
+      "key": 123456,
+      "session": 777,
+      "hex": "267f32fa"
+    },
+    {
+      "key": 99999,
+      "session": 65535,
+      "hex": "03843206"
+    }
+  ]
+}
