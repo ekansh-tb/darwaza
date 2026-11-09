@@ -3,6 +3,7 @@
 # Tests and analyze run locally, not here. Manual trigger only, so it costs minutes
 # only when you press the button: Actions tab > Build > Run workflow.
 name: Build
+run-name: Build Darwaza (mac=${{ inputs.mac }}, ios=${{ inputs.ios }})
 
 on:
   workflow_dispatch:
